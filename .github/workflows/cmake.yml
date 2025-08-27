@@ -30,49 +30,35 @@ jobs:
 
     runs-on: ${{ matrix.os }}
 
-    steps:
-      - uses: actions/checkout@v4
+  steps:
+    - uses: actions/checkout@v4
 
-      # Linux toolchain
-      - name: Install packages (Ubuntu)
-        if: startsWith(matrix.os, 'ubuntu')
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ${{ matrix.apt }}
+    - name: Install packages (Ubuntu)
+      if: startsWith(matrix.os, 'ubuntu')
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y ${{ matrix.apt }}
 
-      # Configure
-      - name: Configure
-        shell: bash
-        run: |
-          cmake -S . -B build -G "${{ matrix.generator }}" \
-            ${{ startsWith(matrix.os, 'windows') && '' || '-DCMAKE_BUILD_TYPE=Release' }}
+    - name: Configure
+      shell: bash
+      run: |
+        cmake -S . -B build -G "${{ matrix.generator }}" \
+          ${{ startsWith(matrix.os, 'windows') && '-A x64' || '-DCMAKE_BUILD_TYPE=Debug' }}
 
-      # Build
-      - name: Build
-        shell: bash
-        run: |
-          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
-            cmake --build build --config Release -- /m
-          else
-            cmake --build build -- -j
-          fi
+    - name: Build
+      shell: bash
+      run: |
+        if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+          cmake --build build --config Debug --parallel
+        else
+          cmake --build build --parallel
+        fi
 
-      # Tests (optional; enable if you have add_test)
-      - name: Test
-        shell: bash
-        run: |
-          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
-            ctest --test-dir build --build-config Release --output-on-failure || true
-          else
-            ctest --test-dir build --output-on-failure || true
-          fi
-
-      # Artifacts (optional)
-      - name: Upload binaries
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-${{ matrix.os }}
-          path: |
-            build/**/*.exe
-            build/**/raytracing
+    - name: Upload binaries
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-${{ matrix.os }}
+        path: |
+          build/**/*.exe
+          build/**/raster
