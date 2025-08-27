@@ -30,35 +30,35 @@ jobs:
 
     runs-on: ${{ matrix.os }}
 
-  steps:
-    - uses: actions/checkout@v4
+    steps:
+      - uses: actions/checkout@v4
 
-    - name: Install packages (Ubuntu)
-      if: startsWith(matrix.os, 'ubuntu')
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y ${{ matrix.apt }}
+      - name: Install packages (Ubuntu)
+        if: startsWith(matrix.os, 'ubuntu')
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ${{ matrix.apt }}
 
-    - name: Configure
-      shell: bash
-      run: |
-        cmake -S . -B build -G "${{ matrix.generator }}" \
-          ${{ startsWith(matrix.os, 'windows') && '-A x64' || '-DCMAKE_BUILD_TYPE=Debug' }}
+      - name: Configure
+        shell: bash
+        run: |
+          cmake -S . -B build -G "${{ matrix.generator }}" \
+            ${{ startsWith(matrix.os, 'windows') && '-A x64' || '-DCMAKE_BUILD_TYPE=Debug' }}
 
-    - name: Build
-      shell: bash
-      run: |
-        if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
-          cmake --build build --config Debug --parallel
-        else
-          cmake --build build --parallel
-        fi
+      - name: Build
+        shell: bash
+        run: |
+          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+            cmake --build build --config Debug --parallel
+          else
+            cmake --build build --parallel
+          fi
 
-    - name: Upload binaries
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: build-${{ matrix.os }}
-        path: |
-          build/**/*.exe
-          build/**/raster
+      - name: Upload binaries
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-${{ matrix.os }}
+          path: |
+            build/**/*.exe
+            build/**/raster
