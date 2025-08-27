@@ -31,5 +31,10 @@
 *.un~
 *.swo
 *.swp
-build/*
 *.DS_Store
+
+# Build system generated files
+build/*
+.cache/
+CMakeFiles/
+CMakeCache.txt

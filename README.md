@@ -1,8 +1,8 @@
 # Computer Graphics – Raster Images
 
 > **To get started:** Clone this repository:
-> 
->     git clone  https://github.com/alecjacobson/computer-graphics-raster-images.git
+>
+>     git clone git@github.com:ohnooj/computer-graphics-raster-images.git
 
 **Do not fork:** Clicking "Fork" will create a _public_ repository. If you'd like to use GitHub while you work on your assignment, then mirror this repo as a new _private_ repository: https://stackoverflow.com/questions/10065526/github-how-to-make-a-fork-of-public-repository-private
 
@@ -20,7 +20,7 @@ compiler on Mac OS X[¹](#¹macusers), Linux[²](#²linuxusers), or
 Windows[³](#³windowsusers).
 
 We also assume that you have cloned this repository using the `--recursive`
-flag (if not then issue `git submodule update --init --recursive`). 
+flag (if not then issue `git submodule update --init --recursive`).
 
 ### Layout
 
@@ -83,7 +83,7 @@ Why don't you try this right now?
 
 ## Execution
 
-Once built, you can execute the assignment from inside the `build/` using 
+Once built, you can execute the assignment from inside the `build/` using
 
     ./raster
 
@@ -107,7 +107,7 @@ its green value, then its blue value, and then the rgb values of its neighbor to
 the right and so on _across_ the row of pixels, and then moving to the next row
 _down_ the columns of rows.
 
-> Q: Suppose you have a 767\times 772 rgb image stored in an array called `data`. How
+> Q: Suppose you have a 767 × 772 rgb image stored in an array called `data`. How
 > would you access the green value at the pixel on the 36th row and 89th
 > column?
 >
@@ -152,7 +152,7 @@ acceptable and reasonable ways to convert a color image into a
 The complexity of each method scales with the amount that method accommodates
 for human perception. For example, a very naive method is to average red, green
 and blue intensities. A slightly better (and very popular method) is to take a
-weighted average giving higher priority to green: 
+weighted average giving higher priority to green:
 
 <p align="center"><img src="/tex/a954b221cf9264cf11fcf943891f27bb.svg?invert_in_darkmode&sanitize=true" align=middle width=232.67438535pt height=14.611878599999999pt/></p>
 
@@ -167,9 +167,8 @@ with a single color channel per pixel. This information is stored as a seemingly
 1-channel image, but with an understood convention for interpreting each pixel
 as the red, green or blue intensity value given some pattern. The most common is
 the [Bayer pattern](https://en.wikipedia.org/wiki/Bayer_filter).  In this
-assignment, we'll assume the top left pixel is green, its right neighbor is blue
-and neighbor below is red, and its
-[kitty-corner](https://en.wiktionary.org/wiki/kitty-corner#Adverb) neighbor is
+assignment, we'll follow the GBRG pattern and assume the top left pixel is green, its right neighbor is blue
+and neighbor below is red, and its [kitty-corner](https://en.wiktionary.org/wiki/kitty-corner#Adverb) neighbor is
 also green.
 
 > Q: Why are more sensors devoted to green?
@@ -249,7 +248,7 @@ At this point, you should start seeing output files:
 
 ![If you've implemented `src/rgba_to_rgb.cpp` correctly then `./raster
 ../data/dog.png` should produce this image in
-`rgb.ppm`.](images/rgb.png) 
+`rgb.ppm`.](images/rgb.png)
 
 ### `src/reflect.cpp`
 
@@ -257,7 +256,7 @@ Horizontally reflect an image (like a mirror)
 
 ![If you've implemented `src/write_ppm.cpp` correctly then `./raster
 ../data/dog.png` should produce this image in
-`reflected.ppm`.](images/reflected.png) 
+`reflected.ppm`.](images/reflected.png)
 
 ### `src/rotate.cpp`
 
@@ -265,7 +264,7 @@ Rotate an image 90^\circ   counter-clockwise
 
 ![`./raster
 ../data/dog.png` should produce this image in
-`rotated.ppm`.](images/rotated.png) 
+`rotated.ppm`.](images/rotated.png)
 
 ### `src/rgb_to_gray.cpp`
 
@@ -273,7 +272,7 @@ Convert a 3-channel RGB image to a 1-channel grayscale image.
 
 ![`./raster
 ../data/dog.png` should produce this image in
-`gray.ppm`.](images/gray.png) 
+`gray.ppm`.](images/gray.png)
 
 ### `src/simulate_bayer_mosaic.cpp`
 
@@ -284,7 +283,7 @@ channel.
 
 ![`./raster
 ../data/dog.png` should produce this image in
-`bayer.ppm`. **Zoom in** to see interleaving.](images/bayer.png) 
+`bayer.ppm`. **Zoom in** to see interleaving.](images/bayer.png)
 
 ### `src/demosaic.cpp`
 
@@ -292,7 +291,7 @@ Given a mosaiced image (interleaved GBRG colors in a single channel), created a
 3-channel rgb image.
 
 ![`./raster ../data/dog.png` should produce this image in
-`demosaicked.ppm`.](images/demosaicked.png) 
+`demosaicked.ppm`.](images/demosaicked.png)
 
 ### `src/rgb_to_hsv.cpp`
 
@@ -306,13 +305,13 @@ using red, green and blue intensities.
 
 ### `src/hue_shift.cpp`
 
-Shift the hue of a color rgb image. 
+Shift the hue of a color rgb image.
 
 Hint: Use your `rgb_to_hsv` and `hsv_to_rgb` functions.
 
 ![`./raster
 ../data/dog.png` should produce this image in
-`shifted.ppm`.](images/shifted.png) 
+`shifted.ppm`.](images/shifted.png)
 
 ### `src/desaturate.cpp`
 
@@ -322,7 +321,7 @@ Hint: Use your `rgb_to_hsv` and `hsv_to_rgb` functions.
 
 ![`./raster
 ../data/dog.png` should produce this image in
-`desaturated.ppm`.](images/desaturated.png) 
+`desaturated.ppm`.](images/desaturated.png)
 
 ### `src/over.cpp`
 
@@ -331,18 +330,18 @@ Compute C = A Over B, where A and B are semi-transparent rgba images and
 
 ![`./raster
 ../data/{dog,glasses,laser-beams,sparkles}.png` should produce this image in
-`composite.ppm`.](images/composite.png) 
+`composite.ppm`.](images/composite.png)
 
 ### *\*New\** Validation
 Starting Fall 2024, we now provide reference PPM files in `data/validation`. You can use these to validate your implementation by comparing the RGB values of your output PPM files against the reference PPM files. Note that while the structure of your PPM files does not need to match the reference files exactly, the RGB values should be identical.
 
 ### Submission
 
-Submit your completed homework on MarkUs. Open the [MarkUs](https://markus.teach.cs.toronto.edu/markus) course 
+Submit your completed homework on MarkUs. Open the [MarkUs](https://markus.teach.cs.toronto.edu/markus) course
 page and submit all the `.cpp` files in your `src/` directory under
 Assignment 1: Raster Images in the `raster-images` repository.
 
-### Questions? 
+### Questions?
 
 Direct your questions to the [Issues page of this
 repository](https://github.com/alecjacobson/computer-graphics-raster-images/issues).
@@ -357,7 +356,7 @@ repository](https://github.com/alecjacobson/computer-graphics-raster-images/issu
 
 > #### ¹ Mac Users
 >
-> You will need to install Xcode if you haven't already. 
+> You will need to install Xcode if you haven't already.
 >
 > #### ² Linux Users
 >

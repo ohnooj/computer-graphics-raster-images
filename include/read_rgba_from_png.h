@@ -23,6 +23,7 @@ inline bool read_rgba_from_png(
   // copy into vector
   rgba.reserve(height*width*4);
   std::copy(rgba_raw,rgba_raw+height*width*4,std::back_inserter(rgba) );
+  stbi_image_free(rgba_raw);
   return true;
 }
 
