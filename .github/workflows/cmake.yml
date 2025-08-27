@@ -75,4 +75,4 @@ jobs:
           name: build-${{ matrix.os }}
           path: |
             build/**/*.exe
-            build/**/raytracing
+            build/**/raster
