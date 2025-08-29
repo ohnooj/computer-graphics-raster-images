@@ -10,7 +10,7 @@
 ## Introduction
 
 Welcome to Computer Graphics! The main purpose of this assignment will be to get
-you up and running with C++ and the cmake build setup used for our assignments.
+you up and running with C++17 and the cmake>v3.20 build setup used for our assignments.
 
 
 ### Prerequisite installation
@@ -380,7 +380,7 @@ repository](https://github.com/alecjacobson/computer-graphics-raster-images/issu
 >
 > #### ³ Windows Users
 >
-> Our assignments only support the Microsoft Visual Studio 2015 (and later) compiler in
+> Our assignments only support the Microsoft Visual Studio 2022 (and later) compiler in
 > 64bit mode. It will not work with a 32bit build and it will not work with
 > older versions of visual studio.
 >
