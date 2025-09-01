@@ -344,13 +344,14 @@ Assignment 1: Raster Images in the `raster-images` repository.
 ### Questions?
 
 Direct your questions to the [Issues page of this
-repository](https://github.com/alecjacobson/computer-graphics-raster-images/issues).
+repository](https://github.com/ohnooj/computer-graphics-raster-images/issues).
+
 
 ### Answers?
 
 Help your fellow students by answering questions or positions helpful tips on
 [Issues page of this
-repository](https://github.com/alecjacobson/computer-graphics-raster-images/issues).
+repository](https://github.com/ohnooj/computer-graphics-raster-images/issues).
 
 -----------------------------------------------------------------------------
 
