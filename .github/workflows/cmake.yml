@@ -1,0 +1,64 @@
+name: CMake Cross-compilation # Shows up on the github Actions tab
+
+on: # When to run
+  push:
+  pull_request:
+  workflow_dispatch: # lets you run it manually from the Actions tab
+
+jobs:
+  build:
+    # Run the same job on multiple OSes
+    strategy:
+      fail-fast: false # don't cancel others if one fails
+      matrix:
+        include:
+          # Linux → Unix Makefiles
+          - os: ubuntu-latest
+            generator: "Unix Makefiles"
+            apt: >-
+              cmake
+              build-essential
+          # macOS (Apple Silicon) → Unix Makefiles
+          - os: macos-14
+            generator: "Unix Makefiles"
+          # macOS (Intel) → Unix Makefiles
+          - os: macos-13
+            generator: "Unix Makefiles"
+          # Windows → Visual Studio solution
+          - os: windows-latest
+            generator: "Visual Studio 17 2022"
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install packages (Ubuntu)
+        if: startsWith(matrix.os, 'ubuntu')
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ${{ matrix.apt }}
+
+      - name: Configure
+        shell: bash
+        run: |
+          cmake -S . -B build -G "${{ matrix.generator }}" \
+            ${{ startsWith(matrix.os, 'windows') && '-A x64' || '-DCMAKE_BUILD_TYPE=Debug' }}
+
+      - name: Build
+        shell: bash
+        run: |
+          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+            cmake --build build --config Debug --parallel
+          else
+            cmake --build build --parallel
+          fi
+
+      - name: Upload binaries
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-${{ matrix.os }}
+          path: |
+            build/**/*.exe
+            build/**/raster
